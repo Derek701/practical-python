@@ -1,6 +1,6 @@
 # mortgage.py
 # 
-# Exercise 1.11
+# Exercise 1.17
 
 principal = 500000.0
 rate = 0.05
@@ -22,7 +22,7 @@ while principal > 0:
         payment = principal
     principal -= payment
     total_paid = total_paid + payment
-    print(num_payments, round(total_paid,2), round(principal,2))
+    print(f'{num_payments:>3} {total_paid:>9.2f} {principal:>9.2f}')
 
-print('Total paid', round(total_paid,2)) # Total paid 877690.94
-print('Months', num_payments) # Months 310
+print(f'Total paid {total_paid:0.2f}') # Total paid 877690.94
+print(f'Months {num_payments:0}') # Months 310
