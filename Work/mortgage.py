@@ -1,6 +1,6 @@
 # mortgage.py
 # 
-# Exercise 1.10
+# Exercise 1.11
 
 principal = 500000.0
 rate = 0.05
@@ -17,7 +17,10 @@ while principal > 0:
         payment += extra_payment
     elif num_payments == extra_payment_end_month:
         payment -= extra_payment
-    principal = principal * (1+rate/12) - payment
+    principal *= 1 + rate/12
+    if payment > principal:
+        payment = principal
+    principal -= payment
     total_paid = total_paid + payment
     print(num_payments, round(total_paid,2), round(principal,2))
 
