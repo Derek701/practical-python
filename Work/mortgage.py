@@ -24,5 +24,5 @@ while principal > 0:
     total_paid = total_paid + payment
     print(num_payments, round(total_paid,2), round(principal,2))
 
-print('Total paid', round(total_paid,2)) # Total paid 880074.1
-print('Months', num_payments)
+print('Total paid', round(total_paid,2)) # Total paid 877690.94
+print('Months', num_payments) # Months 310
