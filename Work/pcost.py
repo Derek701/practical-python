@@ -1,6 +1,6 @@
 # pcost.py
 # 
-# Exercise 1.30
+# Exercise 1.31
 
 import os
 
@@ -10,7 +10,10 @@ def portfolio_cost(filename):
     total_cost = 0
     for line in f:
         row = line.split(',')
-        total_cost += int(row[1]) * float(row[2])
+        try:
+            total_cost += int(row[1]) * float(row[2])
+        except ValueError:
+            print("Couldn't parse", row)
     f.close()
     return total_cost
 
