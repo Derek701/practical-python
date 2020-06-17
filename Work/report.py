@@ -1,6 +1,6 @@
 # report.py
 # 
-# Exercise 2.9
+# Exercise 2.10
 
 import csv
 
@@ -49,3 +49,6 @@ for s in portfolio:
     current_value += s['shares']*prices[s['name']]  # Current value 28686.1
 
 total_gain = current_value - total_cost             # Gain/loss -15985.05
+
+for name, shares, price, change in report:
+    print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
