@@ -1,6 +1,6 @@
 # report.py
 # 
-# Exercise 2.6
+# Exercise 2.7
 
 import csv
 
@@ -28,3 +28,14 @@ def read_prices(filename):
             except IndexError:
                 print("Couldn't parse", row)
     return price
+
+portfolio = read_portfolio('Data/portfolio.csv')
+prices = read_prices('Data/prices.csv')
+total_cost = 0.0
+current_value = 0.0
+
+for s in portfolio:
+    total_cost += s['shares']*s['price']            # Total cost 44671.15
+    current_value += s['shares']*prices[s['name']]  # Current value 28686.1
+
+total_gain = current_value - total_cost             # Gain/loss -15985.05
