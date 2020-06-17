@@ -1,6 +1,6 @@
 # report.py
 # 
-# Exercise 2.10
+# Exercise 2.11
 
 import csv
 
@@ -41,6 +41,7 @@ def make_report(stocks, prices):
 portfolio = read_portfolio('Data/portfolio.csv')
 prices = read_prices('Data/prices.csv')
 report = make_report(portfolio, prices)
+headers = ('Name', 'Shares', 'Price', 'Change')
 total_cost = 0.0
 current_value = 0.0
 
@@ -50,5 +51,10 @@ for s in portfolio:
 
 total_gain = current_value - total_cost             # Gain/loss -15985.05
 
+header = f'{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}'
+separator = f'{"":->10s} {"":->10s} {"":->10s} {"":->10s}'
+
+print(header)
+print(separator)
 for name, shares, price, change in report:
     print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
