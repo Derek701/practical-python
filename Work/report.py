@@ -1,6 +1,6 @@
 # report.py
 # 
-# Exercise 2.7
+# Exercise 2.9
 
 import csv
 
@@ -26,11 +26,21 @@ def read_prices(filename):
             try:
                 price[row[0]] = float(row[1])
             except IndexError:
-                print("Couldn't parse", row)
+                continue # Skip empty line without printing error message
     return price
+
+def make_report(stocks, prices):
+    ''' Takes a list of stocks and dict of prices and returns a list of tuples with report data'''
+    report = []
+
+    for s in stocks:
+        holding = (s['name'], s['shares'], prices[s['name']], prices[s['name']]-s['price'])
+        report.append(holding)
+    return report
 
 portfolio = read_portfolio('Data/portfolio.csv')
 prices = read_prices('Data/prices.csv')
+report = make_report(portfolio, prices)
 total_cost = 0.0
 current_value = 0.0
 
