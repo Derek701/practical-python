@@ -1,6 +1,6 @@
 # report.py
 # 
-# Exercise 2.11
+# Exercise 2.12
 
 import csv
 
@@ -57,4 +57,4 @@ separator = f'{"":->10s} {"":->10s} {"":->10s} {"":->10s}'
 print(header)
 print(separator)
 for name, shares, price, change in report:
-    print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
+    print(f'{name:>10s} {shares:>10d} {"$"+str(price):>10s} {change:>10.2f}')
