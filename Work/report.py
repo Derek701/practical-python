@@ -1,6 +1,6 @@
 # report.py
 # 
-# Exercise 2.20
+# Exercise 2.23
 
 import csv
 
@@ -11,11 +11,12 @@ def read_portfolio(filename):
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         headers = next(rows)
-        for row in rows:
-            record = dict(zip(headers, row))
-            record['shares'] = int(record['shares'])
-            record['price'] = float(record['price'])
-            portfolio.append(record)
+        select = ['name', 'shares', 'price']
+        indices = [ headers.index(colname) for colname in select ]
+        portfolio = [ { colname: row[index] for colname, index in zip(select, indices) } for row in rows ]
+    for s in portfolio:
+        s['shares'] = int(s['shares'])
+        s['price'] = float(s['price'])
     return portfolio
 
 def read_prices(filename):
