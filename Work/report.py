@@ -14,7 +14,7 @@ def read_portfolio(filename):
         for row in rows:
             record = dict(zip(headers, row))
             record['shares'] = int(record['shares'])
-            record['price'] = float(record['shares'])
+            record['price'] = float(record['price'])
             portfolio.append(record)
     return portfolio
 
