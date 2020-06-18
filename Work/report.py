@@ -1,6 +1,6 @@
 # report.py
 # 
-# Exercise 2.12
+# Exercise 2.16
 
 import csv
 
@@ -12,22 +12,24 @@ def read_portfolio(filename):
         rows = csv.reader(f)
         headers = next(rows)
         for row in rows:
-            holding = dict(name=row[0], shares=int(row[1]), price=float(row[2]))
-            portfolio.append(holding)
+            record = dict(zip(headers, row))
+            record['shares'] = int(record['shares'])
+            record['price'] = float(record['shares'])
+            portfolio.append(record)
     return portfolio
 
 def read_prices(filename):
     '''Reads a set of prices into a dict where keys are stock names and values are stock prices'''
-    price = {}
+    prices = {}
 
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         for row in rows:
             try:
-                price[row[0]] = float(row[1])
+                prices[row[0]] = float(row[1])
             except IndexError:
                 continue # Skip empty line without printing error message
-    return price
+    return prices
 
 def make_report(stocks, prices):
     ''' Takes a list of stocks and dict of prices and returns a list of tuples with report data'''
@@ -38,7 +40,7 @@ def make_report(stocks, prices):
         report.append(holding)
     return report
 
-portfolio = read_portfolio('Data/portfolio.csv')
+portfolio = read_portfolio('Data/portfoliodate.csv')
 prices = read_prices('Data/prices.csv')
 report = make_report(portfolio, prices)
 headers = ('Name', 'Shares', 'Price', 'Change')

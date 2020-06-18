@@ -1,6 +1,6 @@
 # pcost.py
 # 
-# Exercise 2.15
+# Exercise 2.16
 
 import csv
 import sys
@@ -11,8 +11,12 @@ def portfolio_cost(filename):
     headers = next(rows)
     total_cost = 0
     for rowno, row in enumerate(rows, start=1):
+        record = dict(zip(headers, row))
         try:
-            total_cost += int(row[1]) * float(row[2])
+            nshares = int(record['shares'])
+            price = float(record['price'])
+            total_cost += nshares * price
+        # This catches errors in int() and float() conversions above
         except ValueError:
             print(f'Row {rowno}: Couldn\'t convert: {row}')
     f.close()
