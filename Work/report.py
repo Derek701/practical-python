@@ -1,6 +1,6 @@
 # report.py
 # 
-# Exercise 2.16
+# Exercise 2.20
 
 import csv
 
@@ -40,18 +40,14 @@ def make_report(stocks, prices):
         report.append(holding)
     return report
 
-portfolio = read_portfolio('Data/portfoliodate.csv')
+portfolio = read_portfolio('Data/portfolio.csv')
 prices = read_prices('Data/prices.csv')
 report = make_report(portfolio, prices)
 headers = ('Name', 'Shares', 'Price', 'Change')
-total_cost = 0.0
-current_value = 0.0
 
-for s in portfolio:
-    total_cost += s['shares']*s['price']            # Total cost 44671.15
-    current_value += s['shares']*prices[s['name']]  # Current value 28686.1
-
-total_gain = current_value - total_cost             # Gain/loss -15985.05
+cost = sum([ s['shares'] * s['price'] for s in portfolio ])         # Total cost 44671.15
+value = sum([ s['shares'] * prices[s['name']] for s in portfolio ]) # Current value 28686.1
+gain = value - cost                                                 # Gain/loss -15985.05
 
 header = f'{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}'
 separator = f'{"":->10s} {"":->10s} {"":->10s} {"":->10s}'
