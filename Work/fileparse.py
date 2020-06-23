@@ -1,6 +1,6 @@
 # fileparse.py
 # 
-# Exercise 3.8
+# Exercise 3.9
 
 import csv
 
@@ -26,7 +26,7 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
             headers = select
 
         records = []
-        for row in rows:
+        for rowno, row in enumerate(rows, start=1):
             if not row:    # Skip rows with no data
                 continue
 
@@ -36,7 +36,11 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
 
             # Apply type conversion to the row
             if types:
-                row = [ func(val) for func, val in zip(types, row) ]
+                try:
+                    row = [ func(val) for func, val in zip(types, row) ]
+                except ValueError as e:
+                    print(f'Row {rowno}: Couldn\'t convert {row}')
+                    print(f'Row {rowno}: Reason {e}')
 
             # Make a dictionary or a tuple
             if headers:
