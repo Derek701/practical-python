@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # report.py
 # 
-# Exercise 3.16
+# Exercise 3.18
 
 from fileparse import parse_csv
 
@@ -10,13 +10,15 @@ def read_portfolio(filename):
     Read a stock portfolio file into a list of dictionaries with keys
     name, shares, and price.
     '''
-    return parse_csv(filename, select=['name', 'shares', 'price'], types=[str, int, float])
+    with open(filename) as lines:
+        return parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float])
 
 def read_prices(filename):
     '''
     Read a CSV file of price data into a dict mapping names to prices
     '''
-    return dict(parse_csv(filename, types=[str, float], has_headers=False))
+    with open(filename) as lines:
+        return dict(parse_csv(lines, types=[str, float], has_headers=False))
 
 def make_report(portfolio, prices):
     '''
