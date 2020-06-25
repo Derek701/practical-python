@@ -1,6 +1,6 @@
 # report.py
 # 
-# Exercise 3.12
+# Exercise 3.14
 
 from fileparse import parse_csv
 
@@ -48,4 +48,9 @@ def portfolio_report(portfolio_filename, prices_filename):
 
     print_report(report)
 
-portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
+def main():
+    portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
+
+# Only prints report when called directly (not imported)
+if __name__ == "__main__":
+    main()
