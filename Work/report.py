@@ -1,37 +1,21 @@
 # report.py
 # 
-# Exercise 3.2
+# Exercise 3.12
 
-import csv
+from fileparse import parse_csv
 
 def read_portfolio(filename):
     '''
     Read a stock portfolio file into a list of dictionaries with keys
     name, shares, and price.
     '''
-    portfolio = []
-    with open(filename) as f:
-        rows = csv.reader(f)
-        headers = next(rows)
-        select = ['name', 'shares', 'price']
-        types = [str, int, float]
-        indices = [ headers.index(colname) for colname in select ]
-        portfolio = [ { colname: func(row[index]) for colname, func, index in zip(select, types, indices) } for row in rows ]
-    return portfolio
+    return parse_csv(filename, select=['name', 'shares', 'price'], types=[str, int, float])
 
 def read_prices(filename):
     '''
     Read a CSV file of price data into a dict mapping names to prices
     '''
-    prices = {}
-    with open(filename) as f:
-        rows = csv.reader(f)
-        for row in rows:
-            try:
-                prices[row[0]] = float(row[1])
-            except IndexError:
-                continue # Skip empty line without printing error message
-    return prices
+    return dict(parse_csv(filename, types=[str, float], has_headers=False))
 
 def make_report(portfolio, prices):
     '''
