@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
 # pcost.py
 # 
-# Exercise 3.15
+# Exercise 3.16
 
 import report
 
