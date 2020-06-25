@@ -1,9 +1,8 @@
 # pcost.py
 # 
-# Exercise 3.14
+# Exercise 3.15
 
 import report
-import sys
 
 def portfolio_cost(filename):
     '''
@@ -12,10 +11,11 @@ def portfolio_cost(filename):
     portfolio = report.read_portfolio(filename)
     return sum( s['shares']*s['price'] for s in portfolio )
 
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-else:
-    filename = 'Data/portfolio.csv'
+def main(argv):
+    if len(argv) != 2:
+        raise SystemExit(f'Usage: {argv[0]} portfolio_filename')
+    print('Total cost', portfolio_cost(argv[1]))
 
-cost = portfolio_cost(filename)
-print('Total cost', cost)
+if __name__ == "__main__":
+    import sys
+    main(sys.argv)

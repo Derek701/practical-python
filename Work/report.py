@@ -1,6 +1,6 @@
 # report.py
 # 
-# Exercise 3.14
+# Exercise 3.15
 
 from fileparse import parse_csv
 
@@ -48,9 +48,11 @@ def portfolio_report(portfolio_filename, prices_filename):
 
     print_report(report)
 
-def main():
-    portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
+def main(argv):
+    if len(argv) != 3:
+        raise SystemExit(f'Usage: {argv[0]} portfolio_filename prices_filename')
+    portfolio_report(argv[1], argv[2])
 
-# Only prints report when called directly (not imported)
 if __name__ == "__main__":
-    main()
+    import sys
+    main(sys.argv)
