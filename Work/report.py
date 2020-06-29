@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 # report.py
 # 
-# Exercise 3.18
+# Exercise 4.4
 
 from fileparse import parse_csv
+from stock import Stock
 
 def read_portfolio(filename):
     '''
-    Read a stock portfolio file into a list of dictionaries with keys
+    Read a stock portfolio file into a list of Stock instances with
     name, shares, and price.
     '''
     with open(filename) as lines:
-        return parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float])
+        portdicts = parse_csv(lines, select=['name','shares','price'], types=[str,int,float])
+        portfolio = [ Stock(d['name'], d['shares'], d['price']) for d in portdicts ]
+        return portfolio
 
 def read_prices(filename):
     '''
@@ -27,7 +30,7 @@ def make_report(portfolio, prices):
     '''
     report = []
     for s in portfolio:
-        holding = (s['name'], s['shares'], prices[s['name']], prices[s['name']]-s['price'])
+        holding = (s.name, s.shares, prices[s.name], prices[s.name]-s.price)
         report.append(holding)
     return report
 
