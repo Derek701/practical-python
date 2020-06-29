@@ -1,6 +1,6 @@
 # stock.py
 # 
-# Exercise 4.1
+# Exercise 4.2
 
 class Stock:
     '''
@@ -10,3 +10,15 @@ class Stock:
         self.name = name
         self.shares = shares
         self.price = price
+
+    def cost(self):
+        '''
+        Return the cost as shares*price
+        '''
+        return self.shares * self.price
+
+    def sell(self, nshares):
+        '''
+        Sell a number of shares
+        '''
+        self.shares -= nshares
