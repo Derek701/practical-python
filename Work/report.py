@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # report.py
 # 
-# Exercise 4.7
+# Exercise 4.8
 
 from fileparse import parse_csv
 from stock import Stock
@@ -60,9 +60,12 @@ def portfolio_report(portfoliofile, pricefile, fmt='txt'):
     print_report(report, formatter)
 
 def main(argv):
-    if len(argv) != 3:
-        raise SystemExit(f'Usage: {argv[0]} portfoliofile pricefile')
-    portfolio_report(argv[1], argv[2])
+    if len(argv) < 3:
+        raise SystemExit(f'Usage: {argv[0]} portfoliofile pricefile [format]')
+    elif len(argv) == 3:
+        portfolio_report(argv[1], argv[2], 'txt')
+    else:
+        portfolio_report(argv[1], argv[2], argv[3])
 
 if __name__ == "__main__":
     import sys
