@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # report.py
 # 
-# Exercise 4.4
+# Exercise 4.5
 
 from fileparse import parse_csv
 from stock import Stock
+import tableformat
 
 def read_portfolio(filename):
     '''
@@ -23,7 +24,7 @@ def read_prices(filename):
     with open(filename) as lines:
         return dict(parse_csv(lines, types=[str, float], has_headers=False))
 
-def make_report(portfolio, prices):
+def make_report_data(portfolio, prices):
     '''
     Make a list of (name, shares, price, change) tuples given a portfolio list
     and prices dictionary.
@@ -34,29 +35,33 @@ def make_report(portfolio, prices):
         report.append(holding)
     return report
 
-def print_report(report):
+def print_report(reportdata, formatter):
     '''
     Print a nicely formated table from a list of (name, shares, price, change) tuples.
     '''
-    headers = ('Name', 'Shares', 'Price', 'Change')
-    print(f'{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}')
-    print(f'{"":->10s} {"":->10s} {"":->10s} {"":->10s}')
-    for name, shares, price, change in report:
-        print(f'{name:>10s} {shares:>10d} {"$"+str(price):>10s} {change:>10.2f}')
+    formatter.headings(['Name','Shares','Price','Change'])
+    for name, shares, price, change in reportdata:
+        rowdata = [ name, str(shares), f'{price:0.2f}', f'{change:0.2f}' ]
+        formatter.row(rowdata)
 
-def portfolio_report(portfolio_filename, prices_filename):
+def portfolio_report(portfoliofile, pricefile):
     '''
     Make a stock report given portfolio and price data files.
     '''
-    portfolio = read_portfolio(portfolio_filename)
-    prices = read_prices(prices_filename)
-    report = make_report(portfolio, prices)
+    # Read data files
+    portfolio = read_portfolio(portfoliofile)
+    prices = read_prices(pricefile)
 
-    print_report(report)
+    # Create the report data
+    report = make_report_data(portfolio, prices)
+
+    # Print it out
+    formatter = tableformat.TableFormatter()
+    print_report(report, formatter)
 
 def main(argv):
     if len(argv) != 3:
-        raise SystemExit(f'Usage: {argv[0]} portfolio_filename prices_filename')
+        raise SystemExit(f'Usage: {argv[0]} portfoliofile pricefile')
     portfolio_report(argv[1], argv[2])
 
 if __name__ == "__main__":
